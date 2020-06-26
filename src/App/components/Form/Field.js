@@ -1,20 +1,52 @@
 import React, { Fragment } from "react";
 import { Form } from "react-bootstrap";
 
-const Field = ({ register, errors, name, type, options, label }) => {
+const Field = ({
+  onChange,
+  selected,
+  register,
+  errors,
+  name,
+  type,
+  options,
+  label,
+  validations,
+  noValidate,
+  className,
+  skipDefault,
+}) => {
+  let currentValidations;
+  if (typeof validations === "object" && !isEmpty(validations)) {
+    currentValidations = validations;
+  } else {
+    if (noValidate) {
+      currentValidations = {};
+    } else {
+      currentValidations = {
+        required: "Requerido",
+      };
+    }
+  }
+
   return (
     <Form.Group controlId={name.toLowerCase()}>
       {label && <Form.Label>{label}</Form.Label>}
       {type === "select" ? (
         <Select
           skipLabel
+          className={className}
+          validations={currentValidations}
+          selected={selected}
+          onChange={onChange}
           register={register}
           errors={errors}
           name={name}
           options={options}
+          skipDefault={skipDefault}
         />
       ) : (
         <Input
+          validations={currentValidations}
           register={register}
           errors={errors}
           label={label}
@@ -26,7 +58,7 @@ const Field = ({ register, errors, name, type, options, label }) => {
   );
 };
 
-const Input = ({ register, errors, type, name, label, validationMessage }) => {
+const Input = ({ register, errors, type, name, label, validations }) => {
   if (!isFunction(register)) return null;
 
   return (
@@ -35,30 +67,42 @@ const Input = ({ register, errors, type, name, label, validationMessage }) => {
         type={type}
         name={name}
         placeholder={label}
-        ref={register({
-          required: validationMessage || "Requerido",
-        })}
+        ref={!isEmpty(validations) ? register(validations) : register}
       />
       {errors && <Error error={errors.message} />}
     </Fragment>
   );
 };
 
-const Select = ({ register, errors, name, options, validationMessage }) => {
+const Select = ({
+  className,
+  onChange,
+  register,
+  errors,
+  name,
+  options,
+  validations,
+  skipDefault,
+}) => {
   if (!isFunction(register)) return null;
 
   return (
     <Fragment>
       <Form.Control
         name={name}
+        className={className}
+        onChange={onChange}
         as="select"
-        ref={register({
-          required: validationMessage || "Requerido",
-        })}
+        ref={!isEmpty(validations) ? register(validations) : register}
       >
+        {!skipDefault && <option value="">Seleccione</option>}
         {options &&
-          options.map((option, index) => {
-            return <option key={index}>{option}</option>;
+          options.map((option) => {
+            return (
+              <option value={option.id} key={option.id}>
+                {option.descripcion}
+              </option>
+            );
           })}
       </Form.Control>
       {errors && <Error error={errors.message} />}
@@ -68,6 +112,10 @@ const Select = ({ register, errors, name, options, validationMessage }) => {
 
 const Error = ({ error }) => {
   return <span className="color-red">{error}</span>;
+};
+
+const isEmpty = (objectToCheck) => {
+  return Object.entries(objectToCheck).length === 0;
 };
 
 const isFunction = (functionToCheck) => {

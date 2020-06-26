@@ -21,8 +21,17 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  padding-right: 10px;
 }
 
+.feather:hover { 
+  color: black;
+  cursor: pointer;
+}
+.no-hover{
+  pointer-events: none;
+}
 .icon-alert-octagon:before {
   content: "\e81b";
 }

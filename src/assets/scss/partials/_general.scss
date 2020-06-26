@@ -880,3 +880,49 @@ p.text-muted {
     -webkit-font-smoothing: antialiased;
 }
 /* material icon for material datetime picker */
+
+.align-items-center {
+    display: flex;
+    align-items: center;
+}
+.btn-plus-or-minus { 
+    border-radius: 50% !important;
+    font-size: 17px !important;
+}
+// .btn-despacho {
+//     margin-right: 0 !important;
+//     border-radius: 0 !important;
+// }
+.remove-icon {
+    font-size: 19px !important;
+}
+
+.remove-icon-2 {
+    font-size: 16px !important;
+}
+
+.btn-font-size {
+    font-size: 16px !important;
+}
+
+.shadow {
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  }
+.i-no-margin { 
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.select-despachos{
+    width: 100px;
+}
+.spinner-grow {
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 9000;
+}

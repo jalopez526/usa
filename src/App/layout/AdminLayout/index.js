@@ -1,7 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import windowSize from "react-window-size";
 import Navigation from "./Navigation";
 import NavBar from "./NavBar";
 import Breadcrumb from "./Breadcrumb";
@@ -12,18 +11,6 @@ import * as actionTypes from "../../../store/actions";
 import "./app.scss";
 
 class AdminLayout extends Component {
-  componentWillMount() {
-    if (this.props.windowWidth > 992 && this.props.windowWidth <= 1024) {
-      this.props.onComponentWillMount();
-    }
-  }
-
-  mobileOutClickHandler() {
-    if (this.props.windowWidth < 992 && this.props.collapseMenu) {
-      this.props.onComponentWillMount();
-    }
-  }
-
   render() {
     const menu = routes.map((route, index) => {
       return route.component ? (
@@ -41,10 +28,7 @@ class AdminLayout extends Component {
       <Aux>
         <Navigation />
         <NavBar />
-        <div
-          className="pcoded-main-container"
-          onClick={() => this.mobileOutClickHandler}
-        >
+        <div className="pcoded-main-container">
           <div className="pcoded-wrapper">
             <div className="pcoded-content">
               <div className="pcoded-inner-content">
@@ -71,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapDispatchToProps)(windowSize(AdminLayout));
+export default connect(mapDispatchToProps)(AdminLayout);

@@ -20,7 +20,7 @@ class Breadcrumb extends Component {
     });
   }
 
-  componentWillReceiveProps = () => {
+  UNSAFE_componentWillReceiveProps = () => {
     navigation.items.map((item, index) => {
       if (item.type && item.type === "group") {
         this.getCollapse(item);
@@ -61,7 +61,7 @@ class Breadcrumb extends Component {
       title = this.state.item.title;
       item = (
         <li className="breadcrumb-item">
-          <a href={DEMO.BLANK_LINK}>{title}</a>
+          <a href={this.state.item.url}>{title}</a>
         </li>
       );
 

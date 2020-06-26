@@ -5,8 +5,15 @@ import React from "react";
 // window.$ = $;
 // global.jQuery = $;
 
-const AgregarArticulos = React.lazy(() => import("./views/articulos/Agregar"));
-const ListarArticulos = React.lazy(() => import("./views/articulos/Listar"));
+const AgregarArticulos = React.lazy(() => import("./views/articulo/Agregar"));
+const ListarArticulos = React.lazy(() => import("./views/articulo/Listar"));
+const EditarArticulos = React.lazy(() => import("./views/articulo/Editar"));
+const DespachosPendientes = React.lazy(() =>
+  import("./views/despacho/DespachosPendientes")
+);
+const DespachosRealizados = React.lazy(() =>
+  import("./views/despacho/DespachosRealizados")
+);
 const Home = React.lazy(() => import("./views/home/Home"));
 
 const routes = [
@@ -23,10 +30,28 @@ const routes = [
     component: AgregarArticulos,
   },
   {
-    path: "/articulos/listar",
+    path: "/articulos",
     exact: true,
     name: "Listar Articulos",
     component: ListarArticulos,
+  },
+  {
+    path: "/articulos/editar/:id",
+    exact: true,
+    name: "Editar Articulos",
+    component: EditarArticulos,
+  },
+  {
+    path: "/despachos/despachos-pendientes",
+    exact: true,
+    name: "Despachos pendientes",
+    component: DespachosPendientes,
+  },
+  {
+    path: "/despachos/despachos-realizados",
+    exact: true,
+    name: "Despachos realizados",
+    component: DespachosRealizados,
   },
 ];
 

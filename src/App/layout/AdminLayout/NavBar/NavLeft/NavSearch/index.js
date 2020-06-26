@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import windowSize from "react-window-size";
-
 import Aux from "../../../../../../hoc/_Aux";
 import DEMO from "../../../../../../store/constant";
 
@@ -80,4 +78,4 @@ class NavSearch extends Component {
   }
 }
 
-export default windowSize(NavSearch);
+export default NavSearch;

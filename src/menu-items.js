@@ -1,19 +1,45 @@
-import config from "./config";
-
 export default {
   items: [
+    // {
+    //   id: "home",
+    //   title: "Inicio",
+    //   type: "group",
+    //   icon: "icon-navigation",
+    //   children: [
+    //     {
+    //       id: "home",
+    //       title: "Inicio",
+    //       type: "item",
+    //       url: "/",
+    //       icon: "feather icon-home",
+    //     },
+    //   ],
+    // },
     {
-      id: "home",
-      title: "Inicio",
+      id: "despachos",
+      title: "Despachos",
       type: "group",
-      icon: "icon-navigation",
+      icon: "icon-ui",
       children: [
         {
-          id: "home",
-          title: "Inicio",
-          type: "item",
-          url: "/",
-          icon: "feather icon-home",
+          id: "despachos",
+          title: "Despachos",
+          type: "collapse",
+          icon: "feather icon-box",
+          children: [
+            {
+              id: "despachos-pendientes",
+              title: "Despachos pendientes",
+              type: "item",
+              url: "/despachos/despachos-pendientes",
+            },
+            {
+              id: "despachos-realizados",
+              title: "Despachos realizados",
+              type: "item",
+              url: "/despachos/despachos-realizados",
+            },
+          ],
         },
       ],
     },
@@ -33,7 +59,7 @@ export default {
               id: "listado-articulos",
               title: "Listado de Articulos",
               type: "item",
-              url: "/articulos/listar",
+              url: "/articulos",
             },
             {
               id: "agregar-articulo",

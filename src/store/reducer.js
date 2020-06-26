@@ -12,6 +12,16 @@ const reducer = (state = initialState, action) => {
   let open = [];
 
   switch (action.type) {
+    case actionTypes.LOADER_ON:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actionTypes.LOADER_OFF:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case actionTypes.COLLAPSE_MENU:
       return {
         ...state,

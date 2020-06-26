@@ -12,6 +12,12 @@ import React from "react";
 
 import Aux from "../../hoc/_Aux";
 
-export default function Home(props) {
-  return null;
-}
+const Home = (props) => {
+  return (
+    <Aux>
+      <h1>Home</h1>;
+    </Aux>
+  );
+};
+
+export default Home;
