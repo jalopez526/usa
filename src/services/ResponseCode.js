@@ -25,5 +25,9 @@ const ResponseCode = {
     code: 2001,
     message: "No se ha encontrado el registro buscado.",
   },
+  UNAUTHORIZED: {
+    code: 401,
+    message: "Acceso denegado",
+  },
 };
 export default ResponseCode;

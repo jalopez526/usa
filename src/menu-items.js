@@ -1,20 +1,5 @@
 export default {
   items: [
-    // {
-    //   id: "home",
-    //   title: "Inicio",
-    //   type: "group",
-    //   icon: "icon-navigation",
-    //   children: [
-    //     {
-    //       id: "home",
-    //       title: "Inicio",
-    //       type: "item",
-    //       url: "/",
-    //       icon: "feather icon-home",
-    //     },
-    //   ],
-    // },
     {
       id: "despachos",
       title: "Despachos",
@@ -63,6 +48,7 @@ export default {
             },
             {
               id: "agregar-articulo",
+              role: "read_articulos",
               title: "Agregar Articulo",
               type: "item",
               url: "/articulos/agregar",

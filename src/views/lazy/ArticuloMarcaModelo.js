@@ -16,6 +16,7 @@ const ArticuloMarcaModelo = ({ id }) => {
     };
     fetchArticuloMarcaModelo(id);
   }, [id]);
+
   return (
     <Table>
       <thead>

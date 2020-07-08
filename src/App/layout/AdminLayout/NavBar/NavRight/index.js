@@ -3,12 +3,16 @@ import { Dropdown } from "react-bootstrap";
 
 import Aux from "../../../../../hoc/_Aux";
 import DEMO from "../../../../../store/constant";
-import Avatar1 from "../../../../../assets/images/user/avatar-1.jpg";
+import Avatar1 from "../../../../../assets/images/avatar.jpg";
 
 class NavRight extends Component {
   state = {
     listOpen: false,
   };
+
+  onClick() {
+    document.location.href = "/login";
+  }
 
   render() {
     return (
@@ -26,18 +30,23 @@ class NavRight extends Component {
               </Dropdown.Toggle>
               <Dropdown.Menu alignRight className="profile-notification">
                 <div className="pro-head">
-                  <span>John Doe</span>
+                  <span>Usuario</span>
                   <a
                     href={DEMO.BLANK_LINK}
                     className="dud-logout"
                     title="Logout"
+                    onClick={() => this.onClick()}
                   >
                     <i className="feather icon-log-out" />
                   </a>
                 </div>
                 <ul className="pro-body">
                   <li>
-                    <a href={DEMO.BLANK_LINK} className="dropdown-item">
+                    <a
+                      href={DEMO.BLANK_LINK}
+                      className="dropdown-item"
+                      onClick={() => this.onClick()}
+                    >
                       <i className="feather icon-log-out" /> Cerrar sesión
                     </a>
                   </li>

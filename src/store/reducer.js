@@ -4,6 +4,7 @@ import config from "./../config";
 const initialState = {
   isOpen: [], //for active default menu
   isTrigger: [], //for active default menu, set blank for horizontal
+  // isLoading: true,
   ...config,
 };
 
@@ -12,16 +13,6 @@ const reducer = (state = initialState, action) => {
   let open = [];
 
   switch (action.type) {
-    case actionTypes.LOADER_ON:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case actionTypes.LOADER_OFF:
-      return {
-        ...state,
-        isLoading: false,
-      };
     case actionTypes.COLLAPSE_MENU:
       return {
         ...state,

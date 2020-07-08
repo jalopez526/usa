@@ -1,20 +1,15 @@
 import React from "react";
-// import $ from "jquery";
 
-// window.jQuery = $;
-// window.$ = $;
-// global.jQuery = $;
-
-const AgregarArticulos = React.lazy(() => import("./views/articulo/Agregar"));
-const ListarArticulos = React.lazy(() => import("./views/articulo/Listar"));
-const EditarArticulos = React.lazy(() => import("./views/articulo/Editar"));
+const AgregarArticulos = React.lazy(() => import("../views/articulo/Agregar"));
+const ListarArticulos = React.lazy(() => import("../views/articulo/Listar"));
+const EditarArticulos = React.lazy(() => import("../views/articulo/Editar"));
 const DespachosPendientes = React.lazy(() =>
-  import("./views/despacho/DespachosPendientes")
+  import("../views/despacho/DespachosPendientes")
 );
 const DespachosRealizados = React.lazy(() =>
-  import("./views/despacho/DespachosRealizados")
+  import("../views/despacho/DespachosRealizados")
 );
-const Home = React.lazy(() => import("./views/home/Home"));
+const Home = React.lazy(() => import("../views/home/Home"));
 
 const routes = [
   {

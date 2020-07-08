@@ -38,8 +38,9 @@ const removeArticulosInDespacho = (id, request) =>
     (response) => response.data
   );
 
-const getAll = () =>
-  BaseApi.get(getAllUrl, {}).then((response) => response.data);
+const getAll = () => {
+  return BaseApi.get(getAllUrl, {}).then((response) => response.data);
+};
 
 const getAllByParams = (config) =>
   BaseApi.get(getAllUrl, {}, config).then((response) => response.data);

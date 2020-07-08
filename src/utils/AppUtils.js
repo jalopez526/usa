@@ -5,4 +5,3 @@ export function parseToMoney(number, prefix = "RD$") {
     parts[1] ? `.${parts[1].padEnd(2, "0")}` : ".00"
   }`;
 }
-///

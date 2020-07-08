@@ -924,5 +924,9 @@ p.text-muted {
     top: 0;
     bottom: 0;
     position: fixed;
-    z-index: 9000;
+    z-index: 1;
+    background-color: #333f54;
+}
+.opacity  {
+    opacity: 0.5;
 }

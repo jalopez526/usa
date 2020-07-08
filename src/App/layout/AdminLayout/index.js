@@ -1,17 +1,33 @@
 import React, { Component, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import NavBar from "./NavBar";
 import Breadcrumb from "./Breadcrumb";
 import Loader from "../Loader";
-import routes from "../../../routes";
+import routes from "../../../routes/app";
 import Aux from "../../../hoc/_Aux";
 import * as actionTypes from "../../../store/actions";
 import "./app.scss";
 
 class AdminLayout extends Component {
+  state = {
+    componentReady: false,
+  };
+
+  componentDidMount() {
+    this.setState({
+      componentReady: true,
+    });
+  }
+
   render() {
+    const { componentReady } = this.state;
+    const accessToken = localStorage.getItem("access_token");
+    if (componentReady && !accessToken) {
+      return <Redirect to={{ pathname: "/login" }} />;
+    }
+
     const menu = routes.map((route, index) => {
       return route.component ? (
         <Route
@@ -26,7 +42,7 @@ class AdminLayout extends Component {
 
     return (
       <Aux>
-        <Navigation />
+        {accessToken && <Navigation />}
         <NavBar />
         <div className="pcoded-main-container">
           <div className="pcoded-wrapper">

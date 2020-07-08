@@ -8,6 +8,10 @@ import {
 } from "react-bootstrap";
 import Aux from "../../hoc/_Aux";
 import DespachoService from "../../services/DespachoService";
+import OptionButton from "../../App/components/OptionButton";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Documento from "../impresion/documento/";
+
 const DespachoDetalle = React.lazy(() => import("../lazy/DespachoDetalle"));
 
 const DespachosRealizados = () => {
@@ -52,6 +56,7 @@ const DespachosRealizados = () => {
                     <th>#</th>
                     <th>Usuario que despachó</th>
                     <th>Fecha del despacho</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,12 +101,35 @@ const Despacho = ({ despacho, eventKey, setDespachos }) => {
     })
   );
 
+  let date;
+  try {
+    date = despacho.fechaCreacion.split("T")[0];
+  } catch (e) {
+    date = despacho.fechaCreacion;
+  }
+
   return (
     <Fragment>
-      <tr onClick={toggleAccordion}>
-        <td>{despacho.id}</td>
-        <td>{despacho.usuario.usuario}</td>
-        <td>{despacho.fechaCreacion}</td>
+      <tr>
+        <td onClick={toggleAccordion}>{despacho.id}</td>
+        <td onClick={toggleAccordion}>{despacho.usuario.usuario}</td>
+        <td onClick={toggleAccordion}>{date}</td>
+        <td>
+          <PDFDownloadLink
+            document={
+              <Documento despachoDetalles={despacho.despachoDetalles} />
+            }
+            fileName="factura.pdf"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? (
+                "Cargando documento"
+              ) : (
+                <OptionButton variant="info" icon="icon-download" />
+              )
+            }
+          </PDFDownloadLink>
+        </td>
       </tr>
       <tr hidden={despacho.hidden}>
         <td colSpan="3">

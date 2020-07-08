@@ -40,8 +40,6 @@ const AddArticulo = () => {
       return;
     }
 
-    console.log(data);
-
     alert("Se ha almacenado el articulo satisfactoriamente");
     setRedirect(true);
   };

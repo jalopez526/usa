@@ -14,6 +14,10 @@ class NavContent extends Component {
     nextDisable: false,
   };
 
+  componentDidMount() {
+    console.log(this.props.navigation);
+  }
+
   scrollPrevHandler = () => {
     const wrapperWidth = document.getElementById("sidenav-wrapper").clientWidth;
 

@@ -19,33 +19,39 @@ import { parseToMoney } from "../../utils/AppUtils";
 import Field from "../../App/components/Form/Field";
 import MarcaService from "../../services/MarcaService";
 import TipoService from "../../services/TipoService";
+import OptionButton from "../../App/components/OptionButton";
+import { hasPermissions } from "../../utils/RolePermisssions";
+import deviceStorage from "../../utils/Storage";
+
 const ArticuloMarcaModelo = React.lazy(() =>
   import("../lazy/ArticuloMarcaModelo")
 );
-
 const ListarArticulo = () => {
   const [articulos, setArticulos] = useState([]);
   const [articuloId, setArticuloId] = useState(null);
+  const [roles, setRoles] = useState(null);
 
   useEffect(() => {
     async function fetchArticulos() {
       const data = await ArticuloService.getAll();
+      const roles = await deviceStorage.getItem("roles");
       if (data.problem) {
         console.log("There was an error fetching articulos");
         return;
       } else if (data.respuesta.codigo !== "0") {
         setArticulos([]);
-        return;
+      } else {
+        const articulos = data.articulos.map((articulo) => {
+          return {
+            ...articulo,
+            hidden: true,
+          };
+        });
+        setArticulos(articulos);
+        setRoles(roles);
       }
-
-      const articulos = data.articulos.map((articulo) => {
-        return {
-          ...articulo,
-          hidden: true,
-        };
-      });
-      setArticulos(articulos);
     }
+
     fetchArticulos();
   }, []);
 
@@ -79,7 +85,7 @@ const ListarArticulo = () => {
   };
 
   const Articulo = ({ articulo, eventKey, setArticulos }) => {
-    const toggleAccordion = useAccordionToggle(eventKey, () =>
+    const toggleAccordion = useAccordionToggle(eventKey, () => {
       setArticulos((prevArticulos) => {
         let articulos = prevArticulos;
         articulos = articulos.map((a, index) => {
@@ -93,53 +99,63 @@ const ListarArticulo = () => {
 
         articulos[eventKey].hidden = !articulos[eventKey].hidden;
         return articulos;
-      })
-    );
+      });
+    });
 
     return (
       <Fragment>
-        <tr onClick={toggleAccordion}>
-          <td>{articulo.id}</td>
-          <td>{articulo.nombre}</td>
-          <td>{articulo.tipo.descripcion}</td>
-          <td>{articulo.codigo}</td>
-          <td>{articulo.ubicacion}</td>
-          <td>{parseToMoney(articulo.precioPorMayor)}</td>
-          <td>{parseToMoney(articulo.precioDetalle)}</td>
-          <td>{parseToMoney(articulo.precioAlterno)}</td>
-          <td>{articulo.esNuevo ? "Si" : "No"}</td>
-          <td>
-            <Button
-              size="sm"
-              variant="outline-dark"
-              onClick={() => setArticuloId(articulo?.id)}
-            >
-              <i className="i-no-margin btn-font-size no-hover feather icon-edit"></i>
-            </Button>
-            <Button
-              size="sm"
-              variant="outline-danger"
-              onClick={() => deleteArticulo(articulo.id)}
-            >
-              <i className="i-no-margin btn-font-size no-hover feather icon-delete"></i>
-            </Button>
+        {roles && (
+          <Fragment>
+            <tr>
+              <td onClick={toggleAccordion}>{articulo.id}</td>
+              <td onClick={toggleAccordion}>{articulo.nombre}</td>
+              <td onClick={toggleAccordion}>{articulo.tipo.descripcion}</td>
+              <td onClick={toggleAccordion}>{articulo.codigo}</td>
+              <td onClick={toggleAccordion}>{articulo.ubicacion}</td>
+              <td onClick={toggleAccordion}>
+                {parseToMoney(articulo.precioPorMayor)}
+              </td>
+              <td onClick={toggleAccordion}>
+                {parseToMoney(articulo.precioDetalle)}
+              </td>
+              <td onClick={toggleAccordion}>
+                {parseToMoney(articulo.precioAlterno)}
+              </td>
+              <td onClick={toggleAccordion}>
+                {articulo.esNuevo ? "Si" : "No"}
+              </td>
+              <td>
+                {hasPermissions(roles, "UPDATE_ARTICULO") && (
+                  <OptionButton
+                    variant="dark"
+                    onClick={() => setArticuloId(articulo?.id)}
+                    icon="icon-edit"
+                  />
+                )}
 
-            <Button
-              size="sm"
-              variant="outline-success"
-              onClick={() => setArticuloForDespacho(articulo.id)}
-            >
-              <i className="i-no-margin btn-font-size no-hover feather icon-shopping-cart"></i>
-            </Button>
-          </td>
-        </tr>
-        <tr hidden={articulo.hidden}>
-          <td colSpan="10">
-            <Accordion.Collapse eventKey={eventKey}>
-              <ArticuloMarcaModelo id={articulo.id} />
-            </Accordion.Collapse>
-          </td>
-        </tr>
+                {hasPermissions(roles, "DELETE_ARTICULO") && (
+                  <OptionButton
+                    variant="danger"
+                    onClick={() => deleteArticulo(articulo.id)}
+                    icon="icon-delete"
+                  />
+                )}
+                <OptionButton
+                  variant="success"
+                  onClick={() => setArticuloForDespacho(articulo.id)}
+                  icon="icon-shopping-cart"
+                />
+              </td>
+            </tr>
+            <tr hidden={articulo.hidden}>
+              <td colSpan="10">
+                <Accordion.Collapse eventKey={eventKey}>
+                  <ArticuloMarcaModelo id={articulo.id} />
+                </Accordion.Collapse>
+              </td>
+            </tr>
+          </Fragment>
+        )}
       </Fragment>
     );
   };
@@ -156,7 +172,7 @@ const ListarArticulo = () => {
             <Card.Body>
               <Row>
                 <Col>
-                  {articulos.length > 0 && (
+                  {articulos.length > 0 ? (
                     <Accordion>
                       <Table responsive bordered hover>
                         <thead className="thead-dark">
@@ -185,8 +201,7 @@ const ListarArticulo = () => {
                         </tbody>
                       </Table>
                     </Accordion>
-                  )}
-                  {(!articulos || articulos.length === 0) && (
+                  ) : (
                     <Alert variant="warning">
                       No se encontraron articulos registrados
                     </Alert>
@@ -226,7 +241,6 @@ const Filtros = ({ setArticulos }) => {
       throw new Error("Ha ocurrido un error inesperado");
     }
 
-    console.log(data.respuesta.codigo !== "0");
     if (data.respuesta.codigo !== "0") {
       alert(data.respuesta.descripcion);
       return;
