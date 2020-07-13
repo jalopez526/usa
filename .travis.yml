@@ -16,7 +16,6 @@ deploy:
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: $S3_BUCKET
   skip_cleanup: true
-  local-dir: dist
   on:
     branch: master
 after_deploy:
