@@ -92,7 +92,7 @@ const Login = () => {
                     type="submit"
                     className="btn btn-primary shadow-2 mb-4 "
                   >
-                    Iniciar sesión
+                    Iniciar sesión (S3 / CloudFront / CI)
                   </button>
                 </div>
               </Form>
