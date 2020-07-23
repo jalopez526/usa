@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from "react";
-import { Switch, Redirect, Route } from "react-router-dom";
+// import { Switch, Redirect, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import NavBar from "./NavBar";
@@ -22,11 +23,11 @@ class AdminLayout extends Component {
   }
 
   render() {
-    const { componentReady } = this.state;
-    const accessToken = localStorage.getItem("access_token");
-    if (componentReady && !accessToken) {
-      return <Redirect to={{ pathname: "/login" }} />;
-    }
+    // const { componentReady } = this.state;
+    // const accessToken = localStorage.getItem("access_token");
+    // if (componentReady && !accessToken) {
+    //   return <Redirect to={{ pathname: "/login" }} />;
+    // }
 
     const menu = routes.map((route, index) => {
       return route.component ? (
@@ -42,7 +43,8 @@ class AdminLayout extends Component {
 
     return (
       <Aux>
-        {accessToken && <Navigation />}
+        {/* {accessToken && <Navigation />} */}
+        <Navigation />
         <NavBar />
         <div className="pcoded-main-container">
           <div className="pcoded-wrapper">
