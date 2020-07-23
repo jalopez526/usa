@@ -39,11 +39,11 @@ function transformResponse(response) {
     response.data = {
       problem: ResponseCode[response.problem],
     };
-    document.location.href = "/usa/login";
+    // document.location.href = "/usa/login";
     return;
   }
 
-  document.location.href = "/usa/login";
+  // document.location.href = "/usa/login";
   response.data = {
     problem: ResponseCode.CONNECTION_ERROR,
   };

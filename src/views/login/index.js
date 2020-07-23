@@ -25,7 +25,7 @@ const Login = () => {
     };
     const data = await AuthService.auth(credentials);
     if (data.problem) {
-      alert("Ha ocurrido un error intentando autenticarse.");
+      alert("Ha ocurrido un error intentando autenticarse");
       return;
     }
 
@@ -92,7 +92,7 @@ const Login = () => {
                     type="submit"
                     className="btn btn-primary shadow-2 mb-4 "
                   >
-                    Iniciar sesión (S3 / CloudFront / CI )
+                    Iniciar sesión
                   </button>
                 </div>
               </Form>
